@@ -6,7 +6,12 @@ app = Flask(__name__)
 
 
 @app.route("/commuter")
-def hello():
+def commuter():
+    """
+    Get the latest train times for a route
+
+    E.g - http://127.0.0.1:5000/commuter?departure=CHM&destination=INT
+    """
     dept = request.args.get('departure', 'CHM')
     dest = request.args.get('destination', 'INT')
     trains = TrainFinder(dept, dest).find_data()
@@ -14,17 +19,11 @@ def hello():
 
 
 @app.route("/")
-def hello2():
-    return "Hello World 2!"
+def index():
+    return "Hello World!"
 
 
 @app.route('/user/<username>')
 def show_user_profile(username):
     # show the user profile for that user
     return 'User %s' % username
-
-
-@app.route('/path/<path:subpath>')
-def show_subpath(subpath):
-    # show the subpath after /path/
-    return 'Subpath %s' % subpath
