@@ -1,10 +1,14 @@
-from flask import Flask, render_template
+
+from flask import Flask, render_template, jsonify
+from .applications.commuter.train import TrainFinder
+
 app = Flask(__name__)
 
 
 @app.route("/commuter")
 def hello():
-    return render_template('commuter/train.html')
+    trains = TrainFinder('CHM', 'INT').find_data()
+    return jsonify([train.output() for train in trains])
 
 
 @app.route("/")
