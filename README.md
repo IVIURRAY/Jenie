@@ -9,10 +9,16 @@ My plan is for this to be the backend for Jean to allow front end UIs to sit on 
 Let's see what we can create...
 
 # How To Run
-On windows, change to the directory of the app \
-Step 1: ```cd H:\Code\PycharmProjects\Jenie\Jenie``` \
+Change to Jenie directory \
+Step 1: ```cd H:\Code\PycharmProjects\Jenie\Jenie```
+
+On windows \
 Step 2: ```set FLASK_APP=run.py``` \
 Step 3: ```flask run``` 
+
+On mac \
+Step 2: ```export FLASK_APP=run.py``` \
+Step 3: ```flask run```
 
 # Useful Tools
 Postman - https://www.getpostman.com/ - Makes quering APIs a lot easier 
