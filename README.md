@@ -8,7 +8,7 @@ My plan is for this to be the backend for Jean to allow front end UIs to sit on 
 
 Let's see what we can create...
 
-# How To Runs
+# How To Run
 On windows, change to the directory of the app \
 Step 1: ```cd H:\Code\PycharmProjects\Jenie\Jenie``` \
 Step 2: ```set FLASK_APP=run.py``` \
