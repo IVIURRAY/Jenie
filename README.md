@@ -12,7 +12,7 @@ Let's see what we can create...
 On windows, change to the directory of the app \
 Step 1: ```cd H:\Code\PycharmProjects\Jenie\Jenie``` \
 Step 2: ```set FLASK_APP=run.py``` \
-Step 3: ```flash run``` 
+Step 3: ```flask run``` 
 
 # Useful Tools
 Postman - https://www.getpostman.com/ - Makes quering APIs a lot easier 
