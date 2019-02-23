@@ -8,7 +8,7 @@ class TrainRoute(object):
 
     def __init__(self, due, dest, status, platform, details):
         self.dept = due  # This is the time of departure
-        self.dest = dest
+        self.dest = ' '.join([name.capitalize() for name in dest.split(' ')])
         self.status = status
         self.platform = platform
         self.details = details
