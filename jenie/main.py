@@ -12,8 +12,8 @@ def commuter():
 
     E.g - http://127.0.0.1:5000/commuter?departure=CHM&destination=INT
     """
-    dept = request.args.get('departure', 'CHM')
-    dest = request.args.get('destination', 'INT')
+    dept = request.args.get('departure', 'LST')
+    dest = request.args.get('destination', 'CHM')
     trains = TrainFinder(dept, dest).find_data()
     return jsonify([train.output() for train in trains])
 
