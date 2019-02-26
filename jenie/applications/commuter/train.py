@@ -2,6 +2,8 @@ import datetime
 import requests
 from bs4 import BeautifulSoup
 
+BASE_URL = 'http://ojp.nationalrail.co.uk'
+
 
 class TrainRoute(object):
     """A data structure to hold train route information"""
@@ -11,7 +13,7 @@ class TrainRoute(object):
         self.dest = ' '.join([name.capitalize() for name in dest.split(' ')])
         self.status = status
         self.platform = platform
-        self.details = details
+        self.details = details # self.find_arrival(details)
 
     def __lt__(self, other):
         return self.format_time(self.dept) <= self.format_time(other.dept)
@@ -25,6 +27,18 @@ class TrainRoute(object):
             'dept': self.dept, 'dest': self.dest, 'status': self.status,
             'platform': self.platform, 'details': self.details
         }
+
+    def find_arrival(self, postfix):
+        r = requests.get(BASE_URL + postfix)
+        soup = BeautifulSoup(r.text, features='html.parser')
+        soup_tbl = soup.find('div', class_='tbl-cont')
+        # TODO - seems that the content on this page loads
+        # when it returns from the server. The page does not
+        # render the same as when I view it in the browser.
+        # content = extract_content(soup_tbl)
+        # print('yo')
+
+
 
 def extract_headers(soup_tbl):
     return [th.text for th in soup_tbl.find_all('th')]
@@ -46,10 +60,9 @@ class TrainFinder(object):
     def __init__(self, dept, dest):
         self.dept = dept  # departure
         self.dest = dest  # destination
-        self.base_url = 'http://ojp.nationalrail.co.uk'
 
     def create_url(self):
-        return '{base}/service/ldbboard/dep/{dept}/{dest}/To'.format(base=self.base_url, dept=self.dept, dest=self.dest)
+        return '{base}/service/ldbboard/dep/{dept}/{dest}/To'.format(base=BASE_URL, dept=self.dept, dest=self.dest)
 
     def parse_html(self):
         r = requests.get(self.create_url())
@@ -65,5 +78,5 @@ class TrainFinder(object):
         return sorted([TrainRoute(**dict(zip(headers, train))) for train in content])
 
 if __name__ == '__main__':
-    x = TrainFinder('CHM', 'INT').find_data()
+    x = TrainFinder('LST', 'CHM').find_data()
     print(x)
